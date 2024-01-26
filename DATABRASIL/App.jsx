@@ -1,8 +1,9 @@
 import { NavigationContainer } from "@react-navigation/native";
-import LoginCliente from "./src/components/LoginCliente";
-import UserHomePage from "./src/components/UserHomePage";
 import { PaperProvider, MD3LightTheme } from "react-native-paper";
 import { createDrawerNavigator } from "@react-navigation/drawer";
+import UserHomePage from "./src/components/UserHomePage";
+import LoginCliente from "./src/components/LoginCliente";
+import CadastroCliente from "./src/components/CadastroCliente";
 
 const theme = {
   ...MD3LightTheme,
@@ -57,8 +58,13 @@ export default function App() {
     <PaperProvider theme={theme}>
       <NavigationContainer>
         <Drawer.Navigator initialRouteName="UserHomePage">
-          <Drawer.Screen name="Login" component={LoginCliente} />
-          <Drawer.Screen name="UserHomePage" component={UserHomePage} />
+          <Drawer.Screen
+            options={{ headerShown: false, drawerLabel: "Deslogar" }}
+            name="Login"
+            component={LoginCliente}
+          />
+          <Drawer.Screen name="Cadastrar Cliente" component={CadastroCliente} />
+          <Drawer.Screen name="Tela Inicial" component={UserHomePage} />
         </Drawer.Navigator>
       </NavigationContainer>
     </PaperProvider>
