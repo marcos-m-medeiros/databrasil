@@ -1,10 +1,9 @@
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LoginCliente from "./src/components/LoginCliente";
 import UserHomePage from "./src/components/UserHomePage";
 import { PaperProvider, MD3LightTheme } from "react-native-paper";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 
-const Stack = createNativeStackNavigator();
 const theme = {
   ...MD3LightTheme,
   colors: {
@@ -51,17 +50,16 @@ const theme = {
   },
 };
 
+const Drawer = createDrawerNavigator();
+
 export default function App() {
   return (
     <PaperProvider theme={theme}>
       <NavigationContainer>
-        <Stack.Navigator
-          initialRouteName="Login"
-          screenOptions={{ headerShown: false }}
-        >
-          <Stack.Screen name="Login" component={LoginCliente} />
-          <Stack.Screen name="UserHomePage" component={UserHomePage} />
-        </Stack.Navigator>
+        <Drawer.Navigator initialRouteName="UserHomePage">
+          <Drawer.Screen name="Login" component={LoginCliente} />
+          <Drawer.Screen name="UserHomePage" component={UserHomePage} />
+        </Drawer.Navigator>
       </NavigationContainer>
     </PaperProvider>
   );

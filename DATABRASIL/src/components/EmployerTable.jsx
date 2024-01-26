@@ -10,7 +10,7 @@ export default function EmployerTable() {
     numberOfItemsPerPageList[0]
   );
 
-  const [items] = useState([{}]);
+  const [items, setItems] = useState([]);
 
   const from = page * itemsPerPage;
   const to = Math.min((page + 1) * itemsPerPage, items.length);
@@ -22,14 +22,18 @@ export default function EmployerTable() {
   async function getAllEmployers() {
     const q = query(collection(db, "funcionarios"));
     const querySnapshot = await getDocs(q);
+    const newItems = [];
     querySnapshot.forEach((doc) => {
       console.log(doc.id, " => ", doc.data());
-      setItems(...items, {
+      newItems.push({
+        id: doc.id,
         nome: doc.data().nome,
         cep: doc.data().cep,
       });
     });
+    setItems(newItems);
   }
+
   useEffect(() => {
     getAllEmployers();
   }, []);
@@ -42,8 +46,9 @@ export default function EmployerTable() {
         <DataTable.Title>CEP</DataTable.Title>
       </DataTable.Header>
 
-      {items.slice(from, to).map((item) => (
-        <DataTable.Row id={item.id}>
+      {items.slice(from, to).map((item, index) => (
+        <DataTable.Row key={index}>
+          <DataTable.Cell>{item.id}</DataTable.Cell>
           <DataTable.Cell>{item.nome}</DataTable.Cell>
           <DataTable.Cell>{item.cep}</DataTable.Cell>
         </DataTable.Row>

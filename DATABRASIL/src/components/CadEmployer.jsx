@@ -42,7 +42,7 @@ export default function CadEmployer() {
         style={styles.cepInput}
         value={input.cepInput}
         onChangeText={(value) => {
-          handleInput("cepInput", input);
+          handleInput("cepInput", value);
         }}
         mask={[/\d/, /\d/, /\d/, /\d/, /\d/, "-", /\d/, /\d/, /\d/]}
       />
